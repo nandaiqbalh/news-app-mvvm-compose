@@ -1,12 +1,14 @@
 package com.nandaiqbalh.pawartos.presentation.navgraph
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.nandaiqbalh.pawartos.presentation.home.HomeScreen
+import com.nandaiqbalh.pawartos.presentation.home.HomeViewModel
 import com.nandaiqbalh.pawartos.presentation.onboarding.OnBoardingScreen
 import com.nandaiqbalh.pawartos.presentation.onboarding.OnBoardingViewModel
 
@@ -39,7 +41,10 @@ fun Navigation(
 			startDestination = AppScreen.HomeScreen.route
 		) {
 			composable(route = AppScreen.HomeScreen.route) {
+				val viewModel: HomeViewModel = hiltViewModel()
+				val articles = viewModel.news.collectAsLazyPagingItems()
 
+				HomeScreen(articles = articles, navigate = {})
 			}
 			composable(route = AppScreen.SearchScreen.route) {
 

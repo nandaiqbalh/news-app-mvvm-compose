@@ -1,4 +1,4 @@
-package com.nandaiqbalh.pawartos
+package com.nandaiqbalh.pawartos.presentation.mainactivity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

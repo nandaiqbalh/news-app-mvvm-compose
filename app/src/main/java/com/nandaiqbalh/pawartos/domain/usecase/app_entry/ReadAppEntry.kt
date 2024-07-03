@@ -1,4 +1,4 @@
-package com.nandaiqbalh.pawartos.domain.usecase
+package com.nandaiqbalh.pawartos.domain.usecase.app_entry
 
 import com.nandaiqbalh.pawartos.domain.manager.LocalUserManager
 import kotlinx.coroutines.flow.Flow

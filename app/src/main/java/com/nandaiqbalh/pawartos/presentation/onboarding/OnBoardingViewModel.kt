@@ -2,7 +2,7 @@ package com.nandaiqbalh.pawartos.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nandaiqbalh.pawartos.domain.usecase.AppEntryUseCases
+import com.nandaiqbalh.pawartos.domain.usecase.app_entry.AppEntryUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
