@@ -1,5 +1,7 @@
 package com.nandaiqbalh.pawartos.presentation.home.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,30 +31,30 @@ import com.nandaiqbalh.pawartos.R
 import com.nandaiqbalh.pawartos.domain.model.Article
 import com.nandaiqbalh.pawartos.presentation.Dimens.ArticleCardSize
 import com.nandaiqbalh.pawartos.presentation.Dimens.ExtraSmallPadding
-import com.nandaiqbalh.pawartos.presentation.Dimens.ExtraSmallPadding2
 import com.nandaiqbalh.pawartos.presentation.Dimens.SmallIconSize
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ArticleCard(
-    modifier: Modifier = Modifier,
-    article: Article,
-    onClick: (() -> Unit)? = null
+	modifier: Modifier = Modifier,
+	article: Article,
+	onClick: (() -> Unit)? = null,
 ) {
 
-    val context = LocalContext.current
-    Row(
-        modifier = modifier.clickable { onClick?.invoke() },
+	val context = LocalContext.current
+	Row(
+		modifier = modifier.clickable { onClick?.invoke() },
 
-        ) {
-        AsyncImage(
-            modifier = Modifier
-                .size(ArticleCardSize)
-                .clip(MaterialTheme.shapes.medium),
-            model = ImageRequest.Builder(context).data(article.urlToImage).build(),
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
+		) {
+		AsyncImage(
+			modifier = Modifier
+				.size(ArticleCardSize)
+				.clip(MaterialTheme.shapes.medium),
+			model = ImageRequest.Builder(context).data(article.urlToImage).build(),
+			contentDescription = null,
+			contentScale = ContentScale.Crop
+		)
 
         Spacer(modifier = Modifier.width(8.dp))
         Column(
@@ -68,28 +70,31 @@ fun ArticleCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = article.source.name,
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                    color = colorResource(id = R.color.body)
-                )
-                Spacer(modifier = Modifier.width(ExtraSmallPadding2))
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_time),
-                    contentDescription = null,
-                    modifier = Modifier.size(SmallIconSize),
-                    tint = colorResource(id = R.color.body)
-                )
-                Spacer(modifier = Modifier.width(ExtraSmallPadding))
-                Text(
-                    text = article.publishedAt,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = colorResource(id = R.color.body)
-                )
-            }
+
+	        Row(
+		        verticalAlignment = Alignment.CenterVertically
+	        ) {
+
+		        Icon(
+			        painter = painterResource(id = R.drawable.ic_time),
+			        contentDescription = null,
+			        modifier = Modifier.size(SmallIconSize),
+			        tint = colorResource(id = R.color.body)
+		        )
+		        Spacer(modifier = Modifier.width(ExtraSmallPadding))
+		        Text(
+			        text = article.publishedAt,
+			        style = MaterialTheme.typography.labelSmall,
+			        color = colorResource(id = R.color.body)
+		        )
+	        }
+
+	        Text(
+		        text = article.source.name,
+		        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+		        color = colorResource(id = R.color.body)
+	        )
+
         }
     }
 }

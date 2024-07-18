@@ -11,6 +11,7 @@ import com.nandaiqbalh.pawartos.domain.usecase.app_entry.ReadAppEntry
 import com.nandaiqbalh.pawartos.domain.usecase.app_entry.SaveAppEntry
 import com.nandaiqbalh.pawartos.domain.usecase.news.GetNews
 import com.nandaiqbalh.pawartos.domain.usecase.news.NewsUseCases
+import com.nandaiqbalh.pawartos.domain.usecase.news.SearchNews
 import com.nandaiqbalh.pawartos.util.Constant.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -62,7 +63,8 @@ object AppModule {
 	@Singleton
 	fun provideNewsUseCases(newsRepository: NewsRepository): NewsUseCases {
 		return NewsUseCases(
-			getNews = GetNews(newsRepository)
+			getNews = GetNews(newsRepository),
+			searchNews = SearchNews(newsRepository)
 		)
 	}
 

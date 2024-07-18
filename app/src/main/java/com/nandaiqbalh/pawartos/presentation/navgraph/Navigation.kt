@@ -11,6 +11,8 @@ import com.nandaiqbalh.pawartos.presentation.home.HomeScreen
 import com.nandaiqbalh.pawartos.presentation.home.HomeViewModel
 import com.nandaiqbalh.pawartos.presentation.onboarding.OnBoardingScreen
 import com.nandaiqbalh.pawartos.presentation.onboarding.OnBoardingViewModel
+import com.nandaiqbalh.pawartos.presentation.search.SearchScreen
+import com.nandaiqbalh.pawartos.presentation.search.SearchViewModel
 
 @Composable
 fun Navigation(
@@ -38,7 +40,7 @@ fun Navigation(
 		// second sub nav
 		navigation(
 			route = AppScreen.NewsNavigation.route,
-			startDestination = AppScreen.HomeScreen.route
+			startDestination = AppScreen.SearchScreen.route
 		) {
 			composable(route = AppScreen.HomeScreen.route) {
 				val viewModel: HomeViewModel = hiltViewModel()
@@ -47,7 +49,12 @@ fun Navigation(
 				HomeScreen(articles = articles, navigate = {})
 			}
 			composable(route = AppScreen.SearchScreen.route) {
+				val viewModel: SearchViewModel = hiltViewModel()
 
+				SearchScreen(
+					searchState = viewModel.state.value,
+					event = viewModel::onEvent,
+					navigate = {})
 			}
 			composable(route = AppScreen.BookmarkScreen.route) {
 
