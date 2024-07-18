@@ -1,5 +1,8 @@
 package com.nandaiqbalh.pawartos.domain.model
 
+import androidx.room.Entity
+
+@Entity(tableName = "article", primaryKeys = ["url"])
 data class Article(
     val author: String,
     val content: String,

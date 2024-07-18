@@ -10,5 +10,7 @@ object Constant {
 
 	val BASE_URL = "https://newsapi.org/v2/"
 
+	val NEWS_DATABASE_NAME = "news_db"
+
 
 }

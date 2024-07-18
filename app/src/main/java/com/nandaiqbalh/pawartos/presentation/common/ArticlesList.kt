@@ -1,5 +1,7 @@
 package com.nandaiqbalh.pawartos.presentation.common
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +17,7 @@ import com.nandaiqbalh.pawartos.presentation.Dimens.ExtraSmallPadding2
 import com.nandaiqbalh.pawartos.presentation.Dimens.MediumPadding1
 import com.nandaiqbalh.pawartos.presentation.home.components.ArticleCard
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ArticlesList(
 	modifier: Modifier = Modifier,
@@ -37,6 +40,32 @@ fun ArticlesList(
 				}
 			}
 		}
+	}
+
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun ArticlesList(
+	modifier: Modifier = Modifier,
+	articles: List<Article>,
+	onClick: (Article) -> Unit,
+) {
+
+
+	LazyColumn(
+		modifier = modifier.fillMaxSize(),
+		verticalArrangement = Arrangement.spacedBy(MediumPadding1),
+		contentPadding = PaddingValues(all = ExtraSmallPadding2)
+	) {
+		items(
+			count = articles.size,
+		) {
+			val article = articles[it]
+			ArticleCard(article = article, onClick = { onClick(article) })
+
+		}
+
 	}
 
 }
