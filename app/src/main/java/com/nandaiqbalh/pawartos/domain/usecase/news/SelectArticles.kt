@@ -1,14 +1,14 @@
 package com.nandaiqbalh.pawartos.domain.usecase.news
 
-import com.nandaiqbalh.pawartos.data.local.NewsDao
 import com.nandaiqbalh.pawartos.domain.model.Article
+import com.nandaiqbalh.pawartos.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 
 class SelectArticles(
-	private val newsDao: NewsDao,
+	private val newsRepository: NewsRepository,
 ) {
 	 operator fun invoke(): Flow<List<Article>> {
-		 return newsDao.getAllArticles()
+		 return newsRepository.selectArticles()
 	}
 
 }

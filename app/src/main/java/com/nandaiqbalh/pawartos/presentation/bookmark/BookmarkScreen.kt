@@ -15,15 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.nandaiqbalh.pawartos.R
+import com.nandaiqbalh.pawartos.domain.model.Article
 import com.nandaiqbalh.pawartos.presentation.Dimens.MediumPadding1
 import com.nandaiqbalh.pawartos.presentation.common.ArticlesList
-import com.nandaiqbalh.pawartos.presentation.navgraph.AppScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BookmarkScreen(
 	state: BookmarkState,
-	navigate: (String) -> Unit,
+	navigateToDetails: (Article) -> Unit,
 ) {
 
 	Column(
@@ -46,7 +46,7 @@ fun BookmarkScreen(
 
 		ArticlesList(
 			articles = state.articles,
-			onClick = { navigate(AppScreen.DetailScreen.route) })
+			onClick = { navigateToDetails(it) })
 
 	}
 

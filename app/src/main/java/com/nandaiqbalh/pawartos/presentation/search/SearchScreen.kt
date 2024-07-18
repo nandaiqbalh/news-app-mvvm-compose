@@ -1,5 +1,7 @@
 package com.nandaiqbalh.pawartos.presentation.search
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,16 +11,17 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.nandaiqbalh.pawartos.domain.model.Article
 import com.nandaiqbalh.pawartos.presentation.Dimens.MediumPadding1
 import com.nandaiqbalh.pawartos.presentation.common.ArticlesList
 import com.nandaiqbalh.pawartos.presentation.common.SearchBar
-import com.nandaiqbalh.pawartos.presentation.navgraph.AppScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SearchScreen(
 	searchState: SearchState,
 	event: (SearchEvent) -> Unit,
-	navigate: (String) -> Unit,
+	navigateToDetails: (Article) -> Unit,
 ) {
 
 	Column(
@@ -41,7 +44,7 @@ fun SearchScreen(
 
 		searchState.articles?.let {
 			val articles = it.collectAsLazyPagingItems()
-			ArticlesList(articles = articles, onClick = { navigate(AppScreen.DetailScreen.route) })
+			ArticlesList(articles = articles, onClick = { navigateToDetails(it) })
 		}
 
 

@@ -1,5 +1,7 @@
 package com.nandaiqbalh.pawartos.presentation.home
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Column
@@ -23,19 +25,23 @@ import com.nandaiqbalh.pawartos.domain.model.Article
 import com.nandaiqbalh.pawartos.presentation.Dimens.MediumPadding1
 import com.nandaiqbalh.pawartos.presentation.common.ArticlesList
 import com.nandaiqbalh.pawartos.presentation.common.SearchBar
-import com.nandaiqbalh.pawartos.presentation.navgraph.AppScreen
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
+fun HomeScreen(
+	articles: LazyPagingItems<Article>,
+	navigateToSearch: () -> Unit,
+	navigateToDetails: (Article) -> Unit,
+) {
 
 	val titles by remember {
 		derivedStateOf {
 			if (articles.itemCount > 10) {
 				articles.itemSnapshotList.items
 					.slice(IntRange(start = 0, endInclusive = 9))
-					.joinToString(separator = " \uD83D\uDFE5 ") { it.title }
+					.joinToString(separator = " \uD83D\uDFE5 ") { it.title!! }
 			} else {
 				""
 			}
@@ -44,23 +50,23 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
 
 	Column(
 		modifier = Modifier
-            .fillMaxSize()
-            .padding(top = MediumPadding1)
-            .statusBarsPadding()
+			.fillMaxSize()
+			.padding(top = MediumPadding1)
+			.statusBarsPadding()
 	) {
 
 		Spacer(modifier = Modifier.height(MediumPadding1))
 
 		SearchBar(
 			modifier = Modifier
-                .padding(horizontal = MediumPadding1)
-                .fillMaxWidth(),
+				.padding(horizontal = MediumPadding1)
+				.fillMaxWidth(),
 			text = "",
 			readOnly = true,
 			onValueChange = {},
 			onSearch = {},
 			onClick = {
-				navigate(AppScreen.SearchScreen.route)
+				navigateToSearch()
 			}
 		)
 
@@ -68,9 +74,9 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
 
 		Text(
 			text = titles, modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = MediumPadding1)
-                .basicMarquee(), fontSize = 12.sp,
+				.fillMaxWidth()
+				.padding(start = MediumPadding1)
+				.basicMarquee(), fontSize = 12.sp,
 			color = colorResource(id = R.color.placeholder)
 		)
 
@@ -80,7 +86,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
 			modifier = Modifier.padding(horizontal = MediumPadding1),
 			articles = articles,
 			onClick = {
-				//TODO: Navigate to Details Screen
+				navigateToDetails(it)
 			}
 		)
 	}

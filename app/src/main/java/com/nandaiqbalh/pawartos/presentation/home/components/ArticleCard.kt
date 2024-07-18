@@ -64,7 +64,7 @@ fun ArticleCard(
                 .height(ArticleCardSize)
         ) {
             Text(
-                text = article.title,
+                text = article.title!!,
                 style = MaterialTheme.typography.bodyMedium.copy(),
                 color = colorResource(id = R.color.text_title),
                 maxLines = 2,
@@ -83,14 +83,14 @@ fun ArticleCard(
 		        )
 		        Spacer(modifier = Modifier.width(ExtraSmallPadding))
 		        Text(
-			        text = article.publishedAt,
+			        text = article.publishedAt!!,
 			        style = MaterialTheme.typography.labelSmall,
 			        color = colorResource(id = R.color.body)
 		        )
 	        }
 
 	        Text(
-		        text = article.source.name,
+		        text = article.source!!.name,
 		        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
 		        color = colorResource(id = R.color.body)
 	        )

@@ -14,6 +14,7 @@ import com.nandaiqbalh.pawartos.domain.usecase.app_entry.AppEntryUseCases
 import com.nandaiqbalh.pawartos.domain.usecase.app_entry.ReadAppEntry
 import com.nandaiqbalh.pawartos.domain.usecase.app_entry.SaveAppEntry
 import com.nandaiqbalh.pawartos.domain.usecase.news.DeleteArticle
+import com.nandaiqbalh.pawartos.domain.usecase.news.GetArticleByUrl
 import com.nandaiqbalh.pawartos.domain.usecase.news.GetNews
 import com.nandaiqbalh.pawartos.domain.usecase.news.NewsUseCases
 import com.nandaiqbalh.pawartos.domain.usecase.news.SearchNews
@@ -65,20 +66,21 @@ object AppModule {
 	@Singleton
 	fun provideNewsRepository(
 		newsApi: NewsApi,
-	): NewsRepository = NewsRepositoryImpl(newsApi)
+		newsDao: NewsDao,
+	): NewsRepository = NewsRepositoryImpl(newsApi, newsDao)
 
 	@Provides
 	@Singleton
 	fun provideNewsUseCases(
 		newsRepository: NewsRepository,
-		newsDao: NewsDao,
 	): NewsUseCases {
 		return NewsUseCases(
 			getNews = GetNews(newsRepository),
 			searchNews = SearchNews(newsRepository),
-			upsertArticle = UpsertArticle(newsDao),
-			selectArticles = SelectArticles(newsDao),
-			deleteArticle = DeleteArticle(newsDao)
+			upsertArticle = UpsertArticle(newsRepository),
+			selectArticles = SelectArticles(newsRepository),
+			deleteArticle = DeleteArticle(newsRepository),
+			getArticleByUrl = GetArticleByUrl(newsRepository)
 		)
 	}
 

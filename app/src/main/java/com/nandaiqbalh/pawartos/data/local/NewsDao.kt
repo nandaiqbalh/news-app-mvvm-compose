@@ -19,4 +19,7 @@ interface NewsDao {
 
 	@Delete
 	suspend fun deleteArticle(article: Article)
+
+	@Query("SELECT * FROM article WHERE url = :url")
+	suspend fun getArticleByUrl(url: String): Article?
 }
